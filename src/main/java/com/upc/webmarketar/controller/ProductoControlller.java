@@ -1,5 +1,6 @@
 package com.upc.webmarketar.controller;
 
+import com.upc.webmarketar.dto.ProductoDTO;
 import com.upc.webmarketar.entities.Producto;
 import com.upc.webmarketar.service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,8 @@ public class ProductoControlller {
 
     // POST: Crear un nuevo producto
     @PostMapping("/producto")
-    public ResponseEntity<Producto> crearProducto(@RequestBody Producto producto) {
-        Producto nuevoProducto = productoService.crearProducto(producto);
+    public ResponseEntity<ProductoDTO> crearProducto(@RequestBody ProductoDTO productoDTO) {
+        ProductoDTO nuevoProducto = productoService.crearProducto(productoDTO);
         return new ResponseEntity<>(nuevoProducto, HttpStatus.CREATED);
     }
 
