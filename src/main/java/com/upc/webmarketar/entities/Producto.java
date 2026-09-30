@@ -71,12 +71,12 @@ public class Producto {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idvendedor", nullable = false)
-    private Vendedor idvendedor;
+    private Vendedor vendedor;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idcategoria", nullable = false)
-    private Categoriaproducto idcategoria;
+    private Categoriaproducto categoria;
 
 
 }

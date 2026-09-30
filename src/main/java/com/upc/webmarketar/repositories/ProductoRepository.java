@@ -12,6 +12,5 @@ public interface ProductoRepository extends JpaRepository<Producto, Long>{
     // Para el COMPRADOR: Lista todos los productos que están activos y con stock
     List<Producto> findByEstadoAndStockGreaterThan(String estado, Integer stock);
 
-    // Para el VENDEDOR: Lista todos los productos que le pertenecen
-    List<Producto> findAllByidvendedor(Long idVendedor);
+    List<Producto> findAllByVendedor_Id(Long idvendedorId);
 }

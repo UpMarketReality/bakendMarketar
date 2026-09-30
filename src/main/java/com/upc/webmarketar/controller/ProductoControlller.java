@@ -9,27 +9,33 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RequestMapping("/api")
 @RestController
-public class ProductoVendedorController {
+public class ProductoControlller {
     @Autowired
     private ProductoService productoService;
 
+    @GetMapping("/producto")
+    public List<Producto>  ListarProductos()
+    {
+        return productoService.ListarProductos();
+    }
     // GET: Listar los productos de un vendedor específico
-    @GetMapping("/mis-productos/{idVendedor}")
+    @GetMapping("/producto/{idVendedor}")
     public ResponseEntity<List<Producto>> listarMisProductos(@PathVariable Long idVendedor) {
         List<Producto> productos = productoService.obtenerProductosPorVendedor(idVendedor);
         return ResponseEntity.ok(productos);
     }
 
     // POST: Crear un nuevo producto
-    @PostMapping
+    @PostMapping("/producto")
     public ResponseEntity<Producto> crearProducto(@RequestBody Producto producto) {
         Producto nuevoProducto = productoService.crearProducto(producto);
         return new ResponseEntity<>(nuevoProducto, HttpStatus.CREATED);
     }
 
     // PUT: Actualizar un producto existente
-    @PutMapping("/{id}")
+    @PutMapping("/producto/{id}")
     public ResponseEntity<Producto> actualizarProducto(
             @PathVariable Long id,
             @RequestBody Producto productoActualizado) {
@@ -38,7 +44,7 @@ public class ProductoVendedorController {
     }
 
     // DELETE: Eliminar un producto (Borrado lógico a INACTIVO)
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/producto/{id}")
     public ResponseEntity<Void> eliminarProducto(@PathVariable Long id) {
         productoService.eliminarProducto(id);
         return ResponseEntity.noContent().build();

@@ -16,15 +16,21 @@ public class ProductoService {
     // ==========================================
     // LÓGICA PARA EL COMPRADOR
     // ==========================================
+    public List<Producto> ListarProductos()
+    {
+        return productoRepository.findAll();
+    }
 
     @Transactional(readOnly = true)
-    public List<Producto> obtenerProductosParaComprador() {
+    public List<Producto> obtenerProductosParaComprador(long idComprador) {
         // Solo muestra productos "ACTIVO" y con stock > 0
+        List<Producto> productosDiponibles = productoRepository.findByEstadoAndStockGreaterThan("ACTIVO", 0);
+
         return productoRepository.findByEstadoAndStockGreaterThan("ACTIVO", 0);
     }
 
     @Transactional(readOnly = true)
-    public Producto obtenerDetalleProducto(Long idProducto) {
+    public Producto obtenerProducto(Long idProducto) {
         return productoRepository.findById(idProducto)
                 .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
     }
@@ -35,7 +41,7 @@ public class ProductoService {
 
     @Transactional(readOnly = true)
     public List<Producto> obtenerProductosPorVendedor(Long idVendedor) {
-        return productoRepository.findAllByidvendedor(idVendedor);
+        return productoRepository.findAllByVendedor_Id(idVendedor);
     }
 
     @Transactional
@@ -56,7 +62,7 @@ public class ProductoService {
             producto.setColor(productoActualizado.getColor());
             producto.setStock(productoActualizado.getStock());
             producto.setEstado(productoActualizado.getEstado());
-            producto.setIdcategoria(productoActualizado.getIdcategoria()); // Asumiendo mapeo 'categoria'
+            producto.setCategoria(productoActualizado.getCategoria()); // Asumiendo mapeo 'categoria'
             return productoRepository.save(producto);
         }).orElseThrow(() -> new RuntimeException("Producto no encontrado para actualizar"));
     }
