@@ -27,5 +27,5 @@ public class ProductoDTO {
 
     private long idVendedor;
 
-    private long idcategoria;
+    private long idCategoria;
 }

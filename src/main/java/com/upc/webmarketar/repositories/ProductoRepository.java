@@ -1,7 +1,6 @@
 package com.upc.webmarketar.repositories;
 
 import com.upc.webmarketar.entities.Producto;
-import com.upc.webmarketar.entities.Vendedor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,4 +12,10 @@ public interface ProductoRepository extends JpaRepository<Producto, Long>{
     List<Producto> findByEstadoAndStockGreaterThan(String estado, Integer stock);
 
     List<Producto> findAllByVendedor_Id(Long idvendedorId);
+
+    List<Producto> findByVendedor_IdAndNombreproductoContainingIgnoreCase(Long vendedorId, String nombreproducto);
+
+    // Buscar por nombre PERO solo salgan los "ACTIVOS"
+    List<Producto> findByNombreproductoContainingIgnoreCaseAndEstado(String nombreproducto, String estado);
+
 }
