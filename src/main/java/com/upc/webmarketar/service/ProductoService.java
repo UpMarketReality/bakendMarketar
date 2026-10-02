@@ -35,10 +35,30 @@ public class ProductoService {
     // LÓGICA PARA EL VENDEDOR
     // ==========================================
 
+    //Lista por Vendedor y valida que el producto este "ACTIVO", que no este eliminado logicamente
     @Transactional(readOnly = true)
     public List<Producto> obtenerProductosPorVendedor(Long idVendedor) {
         return productoRepository.findAllByVendedor_Id(idVendedor);
     }
+    @Transactional(readOnly = true)
+    public List<ProductoDTO> buscarProductosPorNombre(String termino) {
+        List<Producto> productos = productoRepository.findByNombreproductoContainingIgnoreCaseAndEstado(termino, "ACTIVO");
+
+        // Convertimos la lista de Entidades a DTOs usando streams y ModelMapper
+        return productos.stream()
+                .map(producto -> modelMapper.map(producto, ProductoDTO.class))
+                .toList();
+    }
+    @Transactional(readOnly = true)
+    public List<ProductoDTO> buscarProductosPorVendedorNombre(Long idVendedor, String termino) {
+        List<Producto> productos = productoRepository.findByVendedor_IdAndNombreproductoContainingIgnoreCase(idVendedor, termino);
+
+        // Convertimos la lista de Entidades a DTOs usando streams y ModelMapper
+        return productos.stream()
+                .map(producto -> modelMapper.map(producto, ProductoDTO.class))
+                .toList();
+    }
+
 
     @Transactional
     public ProductoDTO crearProducto(ProductoDTO productoDTO) {
@@ -46,7 +66,7 @@ public class ProductoService {
         Vendedor vendedor = vendedorRepository.findById(productoDTO.getIdVendedor())
                 .orElseThrow(() -> new RuntimeException("Vendedor no encontrado"));
 
-        Categoriaproducto categoria = categoriaProductoRepository.findById(productoDTO.getIdcategoria())
+        Categoriaproducto categoria = categoriaProductoRepository.findById(productoDTO.getIdCategoria())
                 .orElseThrow(() -> new RuntimeException("Categoría no encontrada"));
 
         // 2. Mapear mágicamente los campos básicos (nombre, precio, stock, etc.)
@@ -65,7 +85,7 @@ public class ProductoService {
 
         // (Opcional) Si ModelMapper no detecta automáticamente los IDs por diferencias de nombres:
         responseDTO.setIdVendedor(vendedor.getId());
-        responseDTO.setIdcategoria(categoria.getId());
+        responseDTO.setIdCategoria(categoria.getId());
 
         return responseDTO;
     }
@@ -82,14 +102,14 @@ public class ProductoService {
             producto.setColor(productoActualizado.getColor());
             producto.setStock(productoActualizado.getStock());
             producto.setEstado(productoActualizado.getEstado());
-            producto.setCategoria(productoActualizado.getCategoria()); // Asumiendo mapeo 'categoria'
+            producto.setCategoria(productoActualizado.getCategoria());
             return productoRepository.save(producto);
         }).orElseThrow(() -> new RuntimeException("Producto no encontrado para actualizar"));
     }
 
     @Transactional
     public void eliminarProducto(Long idProducto) {
-        // Borrado lógico para mantener integridad referencial
+        // Borrado logico para mantener integridad referencial, los clientes no pueden ver pero los vendedores si
         Producto producto = productoRepository.findById(idProducto)
                 .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
         producto.setEstado("INACTIVO");

@@ -16,6 +16,7 @@ public class ProductoControlller {
     @Autowired
     private ProductoService productoService;
 
+    // GET: Listar los productos
     @GetMapping("/producto")
     public List<Producto>  ListarProductos()
     {
@@ -26,6 +27,18 @@ public class ProductoControlller {
     public ResponseEntity<List<Producto>> listarMisProductos(@PathVariable Long idVendedor) {
         List<Producto> productos = productoService.obtenerProductosPorVendedor(idVendedor);
         return ResponseEntity.ok(productos);
+    }
+    // GET: Listar los producto por el nombre, sirve para que los compradores busquen productos
+    @GetMapping("/buscar")
+    public ResponseEntity<List<ProductoDTO>> buscarProductos(@RequestParam("nombre") String nombre) {
+        List<ProductoDTO> productosEncontrados = productoService.buscarProductosPorNombre(nombre);
+        return ResponseEntity.ok(productosEncontrados);
+    }
+    // GET: Listar los producto por el nombre segun idVendedor
+    @GetMapping("/buscar/{idVendedor}")
+    public ResponseEntity<List<ProductoDTO>> buscarProductos(@RequestParam("nombre") String nombre,  @PathVariable Long idVendedor) {
+        List<ProductoDTO> productosEncontrados = productoService.buscarProductosPorVendedorNombre(idVendedor, nombre);
+        return ResponseEntity.ok(productosEncontrados);
     }
 
     // POST: Crear un nuevo producto
