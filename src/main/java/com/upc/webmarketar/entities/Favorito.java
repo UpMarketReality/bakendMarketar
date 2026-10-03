@@ -10,7 +10,7 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import java.time.Instant;
+import java.time.OffsetDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,8 +28,8 @@ public class Favorito {
 
     @NotNull
     @ColumnDefault("CURRENT_TIMESTAMP")
-    @Column(name = "fecha", nullable = false)
-    private Instant fecha;
+    @Column(name = "fecha", nullable = false, columnDefinition = "timestamptz")
+    private OffsetDateTime fecha;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

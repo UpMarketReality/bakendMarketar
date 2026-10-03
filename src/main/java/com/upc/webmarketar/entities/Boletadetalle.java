@@ -1,5 +1,8 @@
 package com.upc.webmarketar.entities;
 
+import com.upc.webmarketar.entities.Boletaventa;
+import com.upc.webmarketar.entities.Cotizacionprototipo;
+import com.upc.webmarketar.entities.Producto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -17,7 +20,10 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @Entity
-@Table(name = "boletadetalle")
+@Table(name = "boletadetalle", indexes = {
+        @Index(name = "ix_boletadetalle_boleta", columnList = "idboletaventa"),
+        @Index(name = "ix_boletadetalle_producto", columnList = "idproducto")
+})
 public class Boletadetalle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,8 +49,9 @@ public class Boletadetalle {
     @JoinColumn(name = "idboletaventa", nullable = false)
     private Boletaventa idboletaventa;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idproducto")
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "idproducto", nullable = false)
     private Producto idproducto;
 
     @ManyToOne(fetch = FetchType.LAZY)
