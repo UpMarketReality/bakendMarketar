@@ -5,10 +5,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface CarritoDetalleRepository
         extends JpaRepository<Carritodetalle, Long> {
 
     List<Carritodetalle> findByIdcarrito_Id(Long idCarrito);
+
+    Optional<Carritodetalle> findByIdcarrito_IdAndIdproducto_Id(
+            Long idCarrito,
+            Long idProducto
+    );
 }
