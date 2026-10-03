@@ -81,3 +81,13 @@ INSERT INTO PrototipoIA (NombrePrototipo, Prompt, Especificaciones, ModeloIA, Es
  'ERROR',
  1,
  1);
+
+-- Solicitudes abiertas para testear END-22
+INSERT INTO Solicitud
+(FechaSolicitud, Estado, Cantidad, ZonaEntrega, IdComprador, IdPrototipoIA)
+VALUES
+    (CURRENT_TIMESTAMP, 'PENDIENTE', 20, 'Lima Metropolitana', 1, 1),
+
+    (CURRENT_TIMESTAMP, 'PENDIENTE', 15, 'Miraflores, Lima', 1, 2),
+
+    (CURRENT_TIMESTAMP, 'PENDIENTE', 30, 'San Isidro, Lima', 1, 3);
