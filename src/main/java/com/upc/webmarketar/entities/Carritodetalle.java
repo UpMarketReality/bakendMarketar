@@ -16,7 +16,9 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @Entity
-@Table(name = "carritodetalle", uniqueConstraints = {
+@Table(name = "carritodetalle", indexes = {
+        @Index(name = "ix_carritodetalle_producto", columnList = "idproducto")
+}, uniqueConstraints = {
         @UniqueConstraint(name = "uq_carrito_producto", columnNames = {"idcarrito", "idproducto"})
 })
 public class Carritodetalle {

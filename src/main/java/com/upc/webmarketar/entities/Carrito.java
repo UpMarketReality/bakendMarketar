@@ -10,13 +10,16 @@ import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.Instant;
+import java.time.OffsetDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
-@Table(name = "carrito")
+@Table(name = "carrito", uniqueConstraints = {
+        @UniqueConstraint(name = "uq_carrito_propietario", columnNames = {"idcarrito", "idcomprador"})
+})
 public class Carrito {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,8 +28,8 @@ public class Carrito {
 
     @NotNull
     @ColumnDefault("CURRENT_TIMESTAMP")
-    @Column(name = "fechacreacion", nullable = false)
-    private Instant fechacreacion;
+    @Column(name = "fechacreacion", nullable = false, columnDefinition = "timestamptz")
+    private OffsetDateTime fechacreacion;
 
     @Size(max = 30)
     @NotNull

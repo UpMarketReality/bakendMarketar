@@ -10,14 +10,17 @@ import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.math.BigDecimal;
-import java.time.Instant;
+import java.time.OffsetDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
-@Table(name = "producto")
+@Table(name = "producto", indexes = {
+        @Index(name = "ix_producto_catalogo", columnList = "estado, idcategoria, preciounidad, idproducto"),
+        @Index(name = "ix_producto_vendedor", columnList = "idvendedor, idproducto")
+})
 public class Producto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,8 +57,8 @@ public class Producto {
 
     @NotNull
     @ColumnDefault("CURRENT_TIMESTAMP")
-    @Column(name = "fechapublicacion", nullable = false)
-    private Instant fechapublicacion;
+    @Column(name = "fechapublicacion", nullable = false, columnDefinition = "timestamptz")
+    private OffsetDateTime fechapublicacion;
 
     @NotNull
     @ColumnDefault("0")
@@ -64,18 +67,19 @@ public class Producto {
 
     @Size(max = 30)
     @NotNull
-    @ColumnDefault("'ACTIVO'")
+    @ColumnDefault("'AGOTADO'")
     @Column(name = "estado", nullable = false, length = 30)
     private String estado;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idvendedor", nullable = false)
-    private Vendedor vendedor;
+    private Vendedor Vendedor;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idcategoria", nullable = false)
-    private Categoriaproducto categoria;
+    private Categoriaproducto Categoria;
+
 
 }

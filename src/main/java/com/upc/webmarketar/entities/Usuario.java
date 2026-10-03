@@ -15,9 +15,8 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
-@Table(name = "usuario", uniqueConstraints = {
-        @UniqueConstraint(name = "uq_usuario_correo", columnNames = {"correo"})
-})
+@Table(name = "usuario", uniqueConstraints = {@UniqueConstraint(name = "uq_usuario_correo",
+        columnNames = {"correo"})})
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

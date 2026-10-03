@@ -9,14 +9,19 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
-import java.time.Instant;
+import java.time.OffsetDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
-@Table(name = "prototipoia")
+@Table(name = "prototipoia", indexes = {
+        @Index(name = "ix_prototipoia_comprador", columnList = "idcomprador, fechacreacion DESC, idprototipoia DESC"),
+        @Index(name = "ix_prototipoia_categoria", columnList = "idcategoriaprototipo")
+}, uniqueConstraints = {
+        @UniqueConstraint(name = "uq_prototipoia_propietario", columnNames = {"idprototipoia", "idcomprador"})
+})
 public class Prototipoia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,6 +46,15 @@ public class Prototipoia {
     @Column(name = "modeloia", length = 100)
     private String modeloia;
 
+    @Size(max = 300)
+    @Column(name = "mensajeerrorseguro", length = 300)
+    private String mensajeerrorseguro;
+
+    @NotNull
+    @ColumnDefault("CURRENT_TIMESTAMP")
+    @Column(name = "fechaactualizacion", nullable = false, columnDefinition = "timestamptz")
+    private OffsetDateTime fechaactualizacion;
+
     @Size(max = 30)
     @NotNull
     @ColumnDefault("'PENDIENTE'")
@@ -49,8 +63,8 @@ public class Prototipoia {
 
     @NotNull
     @ColumnDefault("CURRENT_TIMESTAMP")
-    @Column(name = "fechacreacion", nullable = false)
-    private Instant fechacreacion;
+    @Column(name = "fechacreacion", nullable = false, columnDefinition = "timestamptz")
+    private OffsetDateTime fechacreacion;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -60,7 +74,7 @@ public class Prototipoia {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idcategoriaprototipo", nullable = false)
-    private Categoriaprototipo idcategoriaprototipo;
+    private Categoriaprototipo categoriaprototipo;
 
 
 }

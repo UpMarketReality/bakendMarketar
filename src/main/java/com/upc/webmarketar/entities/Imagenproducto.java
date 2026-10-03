@@ -16,7 +16,9 @@ import org.hibernate.annotations.OnDeleteAction;
 @Getter
 @Setter
 @Entity
-@Table(name = "imagenproducto")
+@Table(name = "imagenproducto", indexes = {
+        @Index(name = "ix_imagenproducto_producto", columnList = "idproducto")
+})
 public class Imagenproducto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

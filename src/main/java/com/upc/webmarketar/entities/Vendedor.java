@@ -14,9 +14,10 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "vendedor", uniqueConstraints = {
-        @UniqueConstraint(name = "uq_vendedor_ruc", columnNames = {"ruc"}),
-        @UniqueConstraint(name = "uq_vendedor_usuario", columnNames = {"usuarioid"})
-})
+        @UniqueConstraint(name = "uq_vendedor_ruc",
+                columnNames = {"ruc"}),
+        @UniqueConstraint(name = "uq_vendedor_usuario",
+                columnNames = {"usuarioid"})})
 public class Vendedor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

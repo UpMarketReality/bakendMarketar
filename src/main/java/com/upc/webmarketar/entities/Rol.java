@@ -13,9 +13,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "rol", uniqueConstraints = {
-        @UniqueConstraint(name = "uq_rol_nombre", columnNames = {"nombre"})
-})
+@Table(name = "rol", uniqueConstraints = {@UniqueConstraint(name = "uq_rol_nombre",
+        columnNames = {"nombre"})})
 public class Rol {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
