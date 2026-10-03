@@ -5,8 +5,8 @@ INSERT INTO Rol (Nombre, Descripcion) VALUES
 
 -- 2. Insertar Usuarios (Asumiendo IdRol = 1 para Vendedor y IdRol = 2 para Comprador)
 INSERT INTO Usuario (Nombre, PasswordHash, Correo, FechaNacimiento, Pais, Telefono, IdRol) VALUES
-                                                                                               ('Admin InnovaTech', 'hash_vendedor_123', 'admin@innovatech.com', '1995-08-15', 'Perú', '999888777', 1),
-                                                                                               ('Carlos Comprador', 'hash_comprador_456', 'carlos@gmail.com', '1998-11-20', 'Perú', '999111222', 2);
+                                                                                               ('Admin InnovaTech', '$2a$12$566MsdpEZ3/8PLCIxPwyqOP/8XJ8naGFghROoHiCHSQ4SuEvgEnmO', 'admin@innovatech.com', '1995-08-15', 'Perú', '999888777', 1),
+                                                                                               ('Carlos Comprador', '$2a$12$iyWzL4VRMaQCMcMeZkhPHOjiJFQoW9gt2XnMkoOOLgJfsDqjVh3U2', 'carlos@gmail.com', '1998-11-20', 'Perú', '999111222', 2);
 
 -- 3. Insertar Vendedor (Enlazado al Usuario 1)
 INSERT INTO Vendedor (NombreTienda, DescripcionTienda, RUC, UsuarioId) VALUES
