@@ -1,5 +1,6 @@
 package com.upc.webmarketar.service;
 
+import com.upc.webmarketar.dto.SolicitudDetalleDTO;
 import com.upc.webmarketar.dto.SolicitudResumenDTO;
 import com.upc.webmarketar.entities.Solicitud;
 import com.upc.webmarketar.repositories.SolicitudRepository;
@@ -15,20 +16,6 @@ public class SolicitudService {
 
     public SolicitudService(SolicitudRepository solicitudRepository) {
         this.solicitudRepository = solicitudRepository;
-    }
-
-    @Transactional(readOnly = true)
-    public Page<SolicitudResumenDTO> listarSolicitudesAbiertas(
-            Long categoryId,
-            int page,
-            int size
-    ) {
-
-        Pageable pageable = PageRequest.of(page, size);
-
-        return solicitudRepository
-                .buscarSolicitudesAbiertas(categoryId, pageable)
-                .map(this::convertirAResumen);
     }
 
     private SolicitudResumenDTO convertirAResumen(Solicitud solicitud) {
@@ -54,5 +41,57 @@ public class SolicitudService {
                 solicitud.getEstado()
         );
     }
+    @Transactional(readOnly = true)
+    public Page<SolicitudResumenDTO> listarSolicitudesAbiertas(
+            Long categoryId,
+            int page,
+            int size
+    ) {
 
+        Pageable pageable = PageRequest.of(page, size);
+
+        return solicitudRepository
+                .buscarSolicitudesAbiertas(categoryId, pageable)
+                .map(this::convertirAResumen);
+    }
+
+    private SolicitudDetalleDTO convertirADetalle(Solicitud solicitud) {
+
+        return new SolicitudDetalleDTO(
+                solicitud.getId(),
+
+                solicitud.getIdprototipoia().getId(),
+                solicitud.getIdprototipoia().getNombreprototipo(),
+
+                solicitud.getIdprototipoia()
+                        .getIdcategoriaprototipo()
+                        .getId(),
+
+                solicitud.getIdprototipoia()
+                        .getIdcategoriaprototipo()
+                        .getNombre(),
+
+                solicitud.getImagenesreferencia(),
+                solicitud.getEspecificacionesacordadas(),
+                solicitud.getCantidad(),
+                solicitud.getZonaentrega(),
+                solicitud.getCondicionesentrega(),
+                solicitud.getFechasolicitud(),
+                solicitud.getEstado()
+        );
+    }
+
+    @Transactional(readOnly = true)
+    public SolicitudDetalleDTO obtenerSolicitudAbiertaPorId(Long requestId) {
+
+        Solicitud solicitud = solicitudRepository
+                .buscarSolicitudAbiertaPorId(requestId)
+                .orElseThrow(() ->
+                        new RuntimeException(
+                                "No se encontró una solicitud abierta con ID: " + requestId
+                        )
+                );
+
+        return convertirADetalle(solicitud);
+    }
 }
