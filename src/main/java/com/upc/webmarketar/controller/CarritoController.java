@@ -8,6 +8,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.upc.webmarketar.dto.AgregarProductoCarritoDTO;
+import com.upc.webmarketar.dto.RespuestaAgregarProductoDTO;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/api/v1/comprador/carrito")
@@ -30,5 +35,29 @@ public class CarritoController {
                 );
 
         return ResponseEntity.ok(carrito);
+    }
+
+    @PostMapping("/items")
+    @PreAuthorize("hasRole('COMPRADOR')")
+    public ResponseEntity<RespuestaAgregarProductoDTO> agregarProducto(
+            @RequestBody AgregarProductoCarritoDTO datos,
+            Authentication authentication
+    ) {
+
+        String correoComprador = authentication.getName();
+
+        RespuestaAgregarProductoDTO respuesta =
+                carritoService.agregarProducto(
+                        correoComprador,
+                        datos
+                );
+
+        if (respuesta.isNuevo()) {
+            return ResponseEntity
+                    .status(HttpStatus.CREATED)
+                    .body(respuesta);
+        }
+
+        return ResponseEntity.ok(respuesta);
     }
 }
