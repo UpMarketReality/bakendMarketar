@@ -28,6 +28,15 @@ public class Solicitud {
     @Column(name = "fechasolicitud", nullable = false)
     private Instant fechasolicitud;
 
+    @NotNull
+    @Column(name = "cantidad", nullable = false)
+    private Integer cantidad;
+
+    @Size(max = 200)
+    @NotNull
+    @Column(name = "zonaentrega", nullable = false, length = 200)
+    private String zonaentrega;
+
     @Size(max = 30)
     @NotNull
     @ColumnDefault("'PENDIENTE'")
