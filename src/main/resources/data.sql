@@ -127,3 +127,13 @@ INSERT INTO Solicitud (
           1,
           3
       );
+
+-- Carrito activo para testear END-17
+INSERT INTO Carrito (Estado, IdComprador)
+VALUES ('ACTIVO', 1);
+
+    -- Productos dentro del carrito
+    INSERT INTO CarritoDetalle (Cantidad, PrecioUnitario, IdCarrito, IdProducto)
+    VALUES
+            (2, 150.00, 1, 1),
+             (1, 320.00, 1, 2);
