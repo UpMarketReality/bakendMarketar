@@ -50,7 +50,7 @@ public class SolicitudService {
                 solicitud.getCantidad(),
                 solicitud.getZonaentrega(),
 
-                solicitud.getFechasolicitud(),
+                solicitud.getFechasolicitud().toInstant(),
                 solicitud.getEstado()
         );
     }

@@ -74,7 +74,7 @@ public class Prototipoia {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idcategoriaprototipo", nullable = false)
-    private Categoriaprototipo categoriaprototipo;
+    private Categoriaprototipo idcategoriaprototipo;
 
 
 }

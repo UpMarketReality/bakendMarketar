@@ -83,11 +83,47 @@ INSERT INTO PrototipoIA (NombrePrototipo, Prompt, Especificaciones, ModeloIA, Es
  1);
 
 -- Solicitudes abiertas para testear END-22
-INSERT INTO Solicitud
-(FechaSolicitud, Estado, Cantidad, ZonaEntrega, IdComprador, IdPrototipoIA)
-VALUES
-    (CURRENT_TIMESTAMP, 'PENDIENTE', 20, 'Lima Metropolitana', 1, 1),
-
-    (CURRENT_TIMESTAMP, 'PENDIENTE', 15, 'Miraflores, Lima', 1, 2),
-
-    (CURRENT_TIMESTAMP, 'PENDIENTE', 30, 'San Isidro, Lima', 1, 3);
+INSERT INTO Solicitud (
+    Estado,
+    Cantidad,
+    DireccionEntrega,
+    ZonaEntrega,
+    CondicionesEntrega,
+    EspecificacionesAcordadas,
+    ImagenesReferencia,
+    IdComprador,
+    IdPrototipoIA
+) VALUES
+      (
+          'EN_COTIZACION',
+          50,
+          'Av. Javier Prado Este 2465, Dpto. 402',
+          'San Borja, Lima',
+          'Entregar en horario de oficina (9:00 a 18:00). Coordinar previamente con conserjería.',
+          'Polos oversize de algodón pima 50/1 con estampado serigráfico al agua en pecho y espalda. Colores base: negro y beige.',
+          '["https://storage.marketplace.com/ref/polo_frente.png", "https://storage.marketplace.com/ref/polo_espalda.png"]'::jsonb,
+          1,
+          1
+      ),
+      (
+          'COTIZADA',
+          120,
+          'Jr. Las Camelias 890, Almacén Central',
+          'San Isidro, Lima',
+          'Descarga por rampa posterior. Embalaje individual en bolsas biodegradables dentro de cajas rotuladas.',
+          'Tazas de cerámica mate de 11 oz con logotipo grabado en bajo relieve. Empaque individual con ventana de acetato.',
+          '["https://storage.marketplace.com/ref/taza_render3d.jpg"]'::jsonb,
+          1,
+          2
+      ),
+      (
+          'ACEPTADA',
+          25,
+          'Calle Los Pinos 142, Taller 3B',
+          'Miraflores, Lima',
+          'Recepción directa por el diseñador a cargo. Requiere firma de acta de conformidad tras revisión de lote.',
+          'Mochilas ergonómicas en lona repelente al agua, compartimento acolchado para laptop de 15.6 pulgadas y cierres termosellados.',
+          '["https://storage.marketplace.com/ref/mochila_frontal.webp", "https://storage.marketplace.com/ref/mochila_interior.webp", "https://storage.marketplace.com/ref/mochila_cierre.webp"]'::jsonb,
+          1,
+          3
+      );

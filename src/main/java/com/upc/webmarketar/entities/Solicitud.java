@@ -50,19 +50,10 @@ public class Solicitud {
     @Column(name = "estado", nullable = false, length = 30)
     private String estado;
 
-    @NotNull
-    @Column(name = "cantidad", nullable = false)
-    private Integer cantidad;
-
     @Size(max = 300)
     @NotNull
     @Column(name = "direccionentrega", nullable = false, length = 300)
     private String direccionentrega;
-
-    @Size(max = 150)
-    @NotNull
-    @Column(name = "zonaentrega", nullable = false, length = 150)
-    private String zonaentrega;
 
     @Size(max = 1000)
     @NotNull
@@ -91,7 +82,7 @@ public class Solicitud {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idprototipoia", nullable = false)
-    private Prototipoia prototipoia;
+    private Prototipoia idprototipoia;
 
 
 }
