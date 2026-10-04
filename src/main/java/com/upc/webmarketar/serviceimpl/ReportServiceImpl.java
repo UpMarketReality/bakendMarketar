@@ -1,5 +1,6 @@
 package com.upc.webmarketar.serviceimpl;
 
+import com.upc.webmarketar.dtos.OffersDTO;
 import com.upc.webmarketar.dtos.SalesDTO;
 import com.upc.webmarketar.exceptions.ApiException;
 import com.upc.webmarketar.repositories.ReportRepository;

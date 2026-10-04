@@ -1,5 +1,6 @@
 package com.upc.webmarketar.services;
 
+import com.upc.webmarketar.dtos.OffersDTO;
 import com.upc.webmarketar.dtos.SalesDTO;
 
 import java.time.LocalDate;
