@@ -2,7 +2,7 @@ package com.upc.webmarketar.controllers;
 
 import com.upc.webmarketar.dtos.SolicitudDetalleDTO;
 import com.upc.webmarketar.dtos.SolicitudResumenDTO;
-import com.upc.webmarketar.service.SolicitudService;
+import com.upc.webmarketar.services.SolicitudService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

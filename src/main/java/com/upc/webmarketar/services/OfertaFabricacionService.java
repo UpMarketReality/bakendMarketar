@@ -1,4 +1,4 @@
-package com.upc.webmarketar.service;
+package com.upc.webmarketar.services;
 
 import com.upc.webmarketar.dtos.OfertaFabricacionRequestDTO;
 import com.upc.webmarketar.dtos.OfertaFabricacionResponseDTO;
