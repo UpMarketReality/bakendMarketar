@@ -1,7 +1,7 @@
-package com.upc.webmarketar.controller;
+package com.upc.webmarketar.controllers;
 
-import com.upc.webmarketar.dto.OfertaFabricacionRequestDTO;
-import com.upc.webmarketar.dto.OfertaFabricacionResponseDTO;
+import com.upc.webmarketar.dtos.OfertaFabricacionRequestDTO;
+import com.upc.webmarketar.dtos.OfertaFabricacionResponseDTO;
 import com.upc.webmarketar.service.OfertaFabricacionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

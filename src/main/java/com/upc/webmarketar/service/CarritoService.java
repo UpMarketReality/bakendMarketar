@@ -1,7 +1,7 @@
 package com.upc.webmarketar.service;
 
-import com.upc.webmarketar.dto.CarritoDTO;
-import com.upc.webmarketar.dto.ItemCarritoDTO;
+import com.upc.webmarketar.dtos.CarritoDTO;
+import com.upc.webmarketar.dtos.ItemCarritoDTO;
 import com.upc.webmarketar.entities.Carrito;
 import com.upc.webmarketar.entities.Carritodetalle;
 import com.upc.webmarketar.entities.Comprador;

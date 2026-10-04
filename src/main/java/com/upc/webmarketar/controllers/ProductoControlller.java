@@ -1,6 +1,6 @@
-package com.upc.webmarketar.controller;
+package com.upc.webmarketar.controllers;
 
-import com.upc.webmarketar.dto.ProductoDTO;
+import com.upc.webmarketar.dtos.ProductoDTO;
 import com.upc.webmarketar.entities.Producto;
 import com.upc.webmarketar.service.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;

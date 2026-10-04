@@ -1,4 +1,6 @@
 package com.upc.webmarketar.security.dtos;
 
-public class LoginDTO {
-}
+import java.time.OffsetDateTime;
+import java.util.Set;
+
+public record LoginDTO(String jwt, Set<String> roles, OffsetDateTime expiresAt, UserDTO user) {}
