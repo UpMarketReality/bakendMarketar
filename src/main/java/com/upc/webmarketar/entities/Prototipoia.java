@@ -39,7 +39,7 @@ public class Prototipoia {
     @Column(name = "modeloia", length = 100)
     private String modeloia;
 
-    @Size(max = 300)
+
     @Column(name = "mensajeerrorseguro", length = 300)
     private String mensajeerrorseguro;
 
@@ -48,23 +48,22 @@ public class Prototipoia {
     @Column(name = "fechaactualizacion", nullable = false, columnDefinition = "timestamptz")
     private OffsetDateTime fechaactualizacion;
 
-    @Size(max = 30)
-    @NotNull
+
     @ColumnDefault("'PENDIENTE'")
     @Column(name = "estadogeneracion", nullable = false, length = 30)
     private String estadogeneracion;
 
-    @NotNull
+
     @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "fechacreacion", nullable = false, columnDefinition = "timestamptz")
     private OffsetDateTime fechacreacion;
 
-    @NotNull
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idcomprador", nullable = false)
     private Comprador comprador;
 
-    @NotNull
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idcategoriaprototipo", nullable = false)
     private Categoriaprototipo idcategoriaprototipo;
