@@ -1,4 +1,4 @@
-package com.upc.webmarketar.dto;
+package com.upc.webmarketar.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

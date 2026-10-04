@@ -1,7 +1,7 @@
-package com.upc.webmarketar.controller;
+package com.upc.webmarketar.controllers;
 
-import com.upc.webmarketar.dto.SolicitudDetalleDTO;
-import com.upc.webmarketar.dto.SolicitudResumenDTO;
+import com.upc.webmarketar.dtos.SolicitudDetalleDTO;
+import com.upc.webmarketar.dtos.SolicitudResumenDTO;
 import com.upc.webmarketar.service.SolicitudService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;

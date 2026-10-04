@@ -1,6 +1,6 @@
-package com.upc.webmarketar.controller;
+package com.upc.webmarketar.controllers;
 
-import com.upc.webmarketar.dto.CarritoDTO;
+import com.upc.webmarketar.dtos.CarritoDTO;
 import com.upc.webmarketar.service.CarritoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

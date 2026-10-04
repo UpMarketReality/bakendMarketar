@@ -1,14 +1,18 @@
 package com.upc.webmarketar.repositories;
 
 import com.upc.webmarketar.entities.Comprador;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+import jakarta.persistence.LockModeType;
 
-@Repository
+import org.springframework.data.jpa.repository.*;
+import org.springframework.data.repository.query.Param;
+
+import java.util.*;
+
 public interface CompradorRepository extends JpaRepository<Comprador, Long> {
-    Optional<Comprador> findByUsuarioid_Id(Long idUsuario);
+    Optional<Comprador> findByUsuarioid_Id(Long user);
 
-    Optional<Comprador> findByUsuarioid_Correo(String correo);
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Query("select c from Comprador c where c.id = :id")
+    Optional<Comprador> lockById(@Param("id") long id);
 }

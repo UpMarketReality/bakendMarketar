@@ -1,31 +1,28 @@
-package com.upc.webmarketar.security.service;
+package com.upc.webmarketar.security.services;
 
-import com.upc.webmarketar.entities.Usuario;
 import com.upc.webmarketar.repositories.UsuarioRepository;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+import org.springframework.security.core.userdetails.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
-    private final UsuarioRepository usuarioRepository;
+    private final UsuarioRepository users;
 
-    public CustomUserDetailsService(UsuarioRepository usuarioRepository) {
-        this.usuarioRepository = usuarioRepository;
+    public CustomUserDetailsService(UsuarioRepository users) {
+        this.users = users;
     }
 
     @Override
-    public UserDetails loadUserByUsername(String correo) throws UsernameNotFoundException {
-        Usuario usuario = usuarioRepository.findByCorreo(correo)
-                .orElseThrow(() -> new UsernameNotFoundException(
-                                    "Usuario no encontrado: " + correo));
-
-        return User.builder()
-                .username(usuario.getCorreo())
-                .password(usuario.getPasswordhash())
-                .roles(usuario.getIdrol().getNombre())
+    @Transactional(readOnly = true)
+    public UserDetails loadUserByUsername(String email) {
+        var user =
+                users.findByCorreo(email)
+                        .orElseThrow(() -> new UsernameNotFoundException("Usuario inexistente"));
+        return User.withUsername(user.getCorreo())
+                .password(user.getPasswordhash())
+                .roles(user.getIdrol().getNombre())
                 .build();
     }
 }

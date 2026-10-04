@@ -1,4 +1,4 @@
-package com.upc.webmarketar.security.dto;
+package com.upc.webmarketar.security.dtos;
 
 import lombok.Getter;
 import lombok.Setter;

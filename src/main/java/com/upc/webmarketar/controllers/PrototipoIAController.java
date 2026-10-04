@@ -1,4 +1,4 @@
-package com.upc.webmarketar.controller;
+package com.upc.webmarketar.controllers;
 
 import com.upc.webmarketar.entities.Prototipoia;
 import com.upc.webmarketar.service.PrototipoIAService;
