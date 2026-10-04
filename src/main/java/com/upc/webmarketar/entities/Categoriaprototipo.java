@@ -3,6 +3,7 @@ package com.upc.webmarketar.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,9 +14,13 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "categoriaprototipo", uniqueConstraints = {
-        @UniqueConstraint(name = "uq_categoriaprototipo_nombre", columnNames = {"nombre"})
-})
+@Table(
+        name = "categoriaprototipo",
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        name = "uq_categoriaprototipo_nombre",
+                        columnNames = {"nombre"})
+        })
 public class Categoriaprototipo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,6 +39,4 @@ public class Categoriaprototipo {
     @Size(max = 50)
     @Column(name = "tipo", length = 50)
     private String tipo;
-
-
 }
