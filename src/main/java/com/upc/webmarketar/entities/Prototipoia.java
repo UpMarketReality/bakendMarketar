@@ -16,12 +16,7 @@ import java.time.OffsetDateTime;
 @Getter
 @Setter
 @Entity
-@Table(name = "prototipoia", indexes = {
-        @Index(name = "ix_prototipoia_comprador", columnList = "idcomprador, fechacreacion DESC, idprototipoia DESC"),
-        @Index(name = "ix_prototipoia_categoria", columnList = "idcategoriaprototipo")
-}, uniqueConstraints = {
-        @UniqueConstraint(name = "uq_prototipoia_propietario", columnNames = {"idprototipoia", "idcomprador"})
-})
+@Table(name = "prototipoia")
 public class Prototipoia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
