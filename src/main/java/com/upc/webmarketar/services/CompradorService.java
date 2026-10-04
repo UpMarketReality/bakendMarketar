@@ -1,9 +1,7 @@
-package com.upc.webmarketar.service;
+package com.upc.webmarketar.services;
 
 import com.upc.webmarketar.entities.Comprador;
-import com.upc.webmarketar.entities.Vendedor;
 import com.upc.webmarketar.repositories.CompradorRepository;
-import com.upc.webmarketar.repositories.VendedorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

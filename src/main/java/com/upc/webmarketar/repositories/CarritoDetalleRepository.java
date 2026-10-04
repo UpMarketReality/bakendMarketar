@@ -1,14 +1,20 @@
 package com.upc.webmarketar.repositories;
 
 import com.upc.webmarketar.entities.Carritodetalle;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import org.springframework.data.jpa.repository.*;
 
-@Repository
-public interface CarritoDetalleRepository
-        extends JpaRepository<Carritodetalle, Long> {
+import java.util.*;
 
-    List<Carritodetalle> findByIdcarrito_Id(Long idCarrito);
+public interface CarritoDetalleRepository extends JpaRepository<Carritodetalle, Long> {
+    List<Carritodetalle> findByIdcarrito_IdOrderByIdAsc(long cart);
+
+    List<Carritodetalle> findByIdcarrito_IdOrderByIdproducto_IdAsc(long cart);
+
+    Optional<Carritodetalle> findByIdcarrito_IdAndIdproducto_Id(long cart, long product);
+
+    Optional<Carritodetalle> findByIdAndIdcarrito_Idcomprador_IdAndIdcarrito_Estado(
+            long id, long buyer, String state);
+
+    long countByIdcarrito_Idcomprador_IdAndIdcarrito_Estado(long buyer, String state);
 }

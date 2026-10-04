@@ -1,4 +1,4 @@
-package com.upc.webmarketar.service;
+package com.upc.webmarketar.services;
 
 import com.upc.webmarketar.entities.Vendedor;
 import com.upc.webmarketar.repositories.VendedorRepository;

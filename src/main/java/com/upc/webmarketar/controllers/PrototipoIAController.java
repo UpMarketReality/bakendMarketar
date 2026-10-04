@@ -1,7 +1,7 @@
 package com.upc.webmarketar.controllers;
 
 import com.upc.webmarketar.entities.Prototipoia;
-import com.upc.webmarketar.service.PrototipoIAService;
+import com.upc.webmarketar.services.PrototipoIAService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
