@@ -23,21 +23,19 @@ public class Prototipoia {
     @Column(name = "idprototipoia", nullable = false)
     private Long id;
 
-    @Size(max = 150)
-    @NotNull
+
     @Column(name = "nombreprototipo", nullable = false, length = 150)
     private String nombreprototipo;
 
-    @Size(max = 2000)
-    @NotNull
+
     @Column(name = "prompt", nullable = false, length = 2000)
     private String prompt;
 
-    @Size(max = 2000)
+
     @Column(name = "especificaciones", length = 2000)
     private String especificaciones;
 
-    @Size(max = 100)
+
     @Column(name = "modeloia", length = 100)
     private String modeloia;
 
