@@ -2,14 +2,15 @@ package com.upc.webmarketar.repositories;
 
 import com.upc.webmarketar.entities.Cotizacionprototipo;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
-@Repository
-public interface CotizacionPrototipoRepository
-        extends JpaRepository<Cotizacionprototipo, Long> {
+import java.util.List;
 
-    boolean existsByIdsolicitud_IdAndIdvendedor_Id(
-            Long idSolicitud,
-            Long idVendedor
-    );
+public interface CotizacionPrototipoRepository extends JpaRepository<Cotizacionprototipo, Long> {
+    List<Cotizacionprototipo> findByIdsolicitud_IdOrderByMontoAscIdAsc(long request);
+
+    long countByIdsolicitud_Id(long request);
+
+    boolean existsByIdsolicitud_IdAndIdvendedor_Id(long request, long seller);
+
+    List<Cotizacionprototipo> findByIdsolicitud_IdAndEstado(long request, String state);
 }
