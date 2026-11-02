@@ -1,8 +1,6 @@
 package com.upc.webmarketar.security.controllers;
 
-import com.upc.webmarketar.dtos.*;
 import com.upc.webmarketar.security.dtos.*;
-import com.upc.webmarketar.services.AuthService;
 
 import jakarta.validation.Valid;
 

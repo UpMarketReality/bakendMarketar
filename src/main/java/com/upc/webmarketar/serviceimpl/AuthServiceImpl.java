@@ -5,7 +5,6 @@ import com.upc.webmarketar.exceptions.ApiException;
 import com.upc.webmarketar.repositories.*;
 import com.upc.webmarketar.security.dtos.*;
 import com.upc.webmarketar.security.util.JwtTokens;
-import com.upc.webmarketar.services.AuthService;
 
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.AuthenticationException;
