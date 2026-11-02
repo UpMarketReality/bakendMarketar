@@ -20,9 +20,9 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
     @Query(
             """
             select p from Producto p where
-            ((:seller is null and p.estado in ('ACTIVO','AGOTADO')) or p.vendedor.id = :seller)
+            ((:seller is null and p.estado in ('ACTIVO','AGOTADO')) or p.Vendedor.id = :seller)
             and (:search is null or lower(p.nombreproducto) like :search escape '!')
-            and (:category is null or p.categoria.id = :category)
+            and (:category is null or p.Categoria.id = :category)
             and (:min is null or p.preciounidad >= :min)
             and (:max is null or p.preciounidad <= :max)
             """)

@@ -34,7 +34,7 @@ public interface ReportRepository extends Repository<Boletadetalle, Long> {
             select count(distinct v.id) as purchases, coalesce(sum(d.cantidad), 0) as units,
                    coalesce(sum(d.cantidad * d.preciounitario - d.descuento), 0) as amount
             from Boletadetalle d join d.idboletaventa v join d.idproducto p
-            where p.vendedor.id = :seller and v.estadoemision = 'PENDIENTE'
+            where p.Vendedor.id = :seller and v.estadoemision = 'PENDIENTE'
               and v.fechaventa >= :start and v.fechaventa < :end
             """)
     SalesTotals sales(
@@ -47,7 +47,7 @@ public interface ReportRepository extends Repository<Boletadetalle, Long> {
             select new com.upc.webmarketar.dtos.ProductSalesDTO(p.id, p.nombreproducto,
                    sum(d.cantidad), sum(d.cantidad * d.preciounitario - d.descuento))
             from Boletadetalle d join d.idboletaventa v join d.idproducto p
-            where p.vendedor.id = :seller and v.estadoemision = 'PENDIENTE'
+            where p.Vendedor.id = :seller and v.estadoemision = 'PENDIENTE'
               and v.fechaventa >= :start and v.fechaventa < :end
             group by p.id, p.nombreproducto order by p.id
             """)
