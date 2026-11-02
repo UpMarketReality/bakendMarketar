@@ -1,11 +1,16 @@
 package com.upc.webmarketar.security.controllers;
 
-import com.upc.webmarketar.security.dtos.*;
-
+import com.upc.webmarketar.security.dtos.LoginDTO;
+import com.upc.webmarketar.security.dtos.LoginRequest;
+import com.upc.webmarketar.security.dtos.RegisterRequest;
+import com.upc.webmarketar.security.dtos.UserDTO;
+import com.upc.webmarketar.services.AuthService;
 import jakarta.validation.Valid;
-
-import org.springframework.http.*;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @io.swagger.v3.oas.annotations.security.SecurityRequirements
 @RestController

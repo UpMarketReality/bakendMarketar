@@ -1,15 +1,16 @@
 package com.upc.webmarketar.security.util;
 
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
-import java.time.*;
-import java.util.*;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+import java.util.Date;
 
 @Component
 public class JwtTokens {
@@ -17,8 +18,8 @@ public class JwtTokens {
     private final long minutes;
 
     public JwtTokens(
-            @Value("MarketAR_Clave_Secreta_JWT_2026_Seguridad_123456789") String secret,
-            @Value("15") long minutes) {
+            @Value("${marketar.jwt.secret}") String secret,
+            @Value("${marketar.jwt.minutes}") long minutes) {
         this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
         this.minutes = minutes;
     }

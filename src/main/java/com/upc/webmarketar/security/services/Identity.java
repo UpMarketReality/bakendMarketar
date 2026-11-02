@@ -1,8 +1,9 @@
 package com.upc.webmarketar.security.services;
 
 import com.upc.webmarketar.exceptions.ApiException;
-import com.upc.webmarketar.repositories.*;
-
+import com.upc.webmarketar.repositories.CompradorRepository;
+import com.upc.webmarketar.repositories.UsuarioRepository;
+import com.upc.webmarketar.repositories.VendedorRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
@@ -37,4 +38,3 @@ public class Identity {
         return sellers.findByUsuarioid_Id(user()).orElseThrow(ApiException::missing).getId();
     }
 }
-
