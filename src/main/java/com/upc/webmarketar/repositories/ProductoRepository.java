@@ -1,21 +1,36 @@
 package com.upc.webmarketar.repositories;
 
 import com.upc.webmarketar.entities.Producto;
+import jakarta.persistence.LockModeType;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.Lock;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
-import java.util.List;
+import java.math.BigDecimal;
+import java.util.Optional;
 
-@Repository
-public interface ProductoRepository extends JpaRepository<Producto, Long>{
-    // Para el COMPRADOR: Lista todos los productos que están activos y con stock
-    List<Producto> findByEstadoAndStockGreaterThan(String estado, Integer stock);
+public interface ProductoRepository extends JpaRepository<Producto, Long> {
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Query("select p from Producto p where p.id = :id")
+    Optional<Producto> lockById(@Param("id") long id);
 
-    List<Producto> findAllByVendedor_Id(Long idvendedorId);
-
-    List<Producto> findByVendedor_IdAndNombreproductoContainingIgnoreCase(Long vendedorId, String nombreproducto);
-
-    // Buscar por nombre PERO solo salgan los "ACTIVOS"
-    List<Producto> findByNombreproductoContainingIgnoreCaseAndEstado(String nombreproducto, String estado);
-
+    @Query(
+            """
+            select p from Producto p where
+            ((:seller is null and p.estado in ('ACTIVO','AGOTADO')) or p.vendedor.id = :seller)
+            and (:search is null or lower(p.nombreproducto) like :search escape '!')
+            and (:category is null or p.categoria.id = :category)
+            and (:min is null or p.preciounidad >= :min)
+            and (:max is null or p.preciounidad <= :max)
+            """)
+    Page<Producto> search(
+            @Param("seller") Long seller,
+            @Param("search") String search,
+            @Param("category") Long category,
+            @Param("min") BigDecimal min,
+            @Param("max") BigDecimal max,
+            Pageable pageable);
 }

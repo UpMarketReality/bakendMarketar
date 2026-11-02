@@ -2,8 +2,8 @@ package com.upc.webmarketar.security.config;
 
 import com.upc.webmarketar.security.filters.JwtFilter;
 import com.upc.webmarketar.security.services.CustomUserDetailsService;
-
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
@@ -13,7 +13,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.*;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfigurationSource;
 
@@ -82,7 +82,7 @@ public class SecurityConfig {
                                                     r.getWriter()
                                                             .write(
                                                                     "{\"status\":401,\"message\":\"Inicia"
-                                                                            + " sesión\"}");
+                                                                        + " sesión\"}");
                                                 })
                                         .accessDeniedHandler(
                                                 (q, r, x) -> {
@@ -92,7 +92,7 @@ public class SecurityConfig {
                                                     r.getWriter()
                                                             .write(
                                                                     "{\"status\":403,\"message\":\"Acceso"
-                                                                            + " denegado\"}");
+                                                                        + " denegado\"}");
                                                 }))
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
                 .build();

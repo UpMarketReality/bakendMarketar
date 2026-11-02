@@ -1,13 +1,21 @@
 package com.upc.webmarketar.serviceimpl;
 
-import com.upc.webmarketar.entities.*;
+import com.upc.webmarketar.entities.Comprador;
+import com.upc.webmarketar.entities.Usuario;
+import com.upc.webmarketar.entities.Vendedor;
 import com.upc.webmarketar.exceptions.ApiException;
-import com.upc.webmarketar.repositories.*;
-import com.upc.webmarketar.security.dtos.*;
+import com.upc.webmarketar.repositories.CompradorRepository;
+import com.upc.webmarketar.repositories.RolRepository;
+import com.upc.webmarketar.repositories.UsuarioRepository;
+import com.upc.webmarketar.repositories.VendedorRepository;
+import com.upc.webmarketar.security.dtos.LoginDTO;
+import com.upc.webmarketar.security.dtos.LoginRequest;
+import com.upc.webmarketar.security.dtos.RegisterRequest;
+import com.upc.webmarketar.security.dtos.UserDTO;
 import com.upc.webmarketar.security.util.JwtTokens;
 import com.upc.webmarketar.services.AuthService;
-
-import org.springframework.security.authentication.*;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -53,9 +61,9 @@ public class AuthServiceImpl implements AuthService {
         }
         if ("VENDEDOR".equals(r.role())
                 && (r.storeName() == null
-                || r.storeName().isBlank()
-                || r.ruc() == null
-                || !r.ruc().matches("[0-9]{11}"))) {
+                        || r.storeName().isBlank()
+                        || r.ruc() == null
+                        || !r.ruc().matches("[0-9]{11}"))) {
             throw ApiException.bad("Vendedor requiere tienda y RUC de 11 dígitos");
         }
         Usuario user = new Usuario();

@@ -1,8 +1,6 @@
 package com.upc.webmarketar.services;
 
-import com.upc.webmarketar.dtos.AddItemRequest;
-import com.upc.webmarketar.dtos.CartDTO;
-import com.upc.webmarketar.dtos.PurchaseDTO;
+import com.upc.webmarketar.dtos.*;
 
 import java.util.List;
 

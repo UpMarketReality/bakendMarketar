@@ -1,12 +1,11 @@
 package com.upc.webmarketar.repositories;
 
 import com.upc.webmarketar.entities.Boletaventa;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.*;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.*;
+import java.util.Optional;
 
 public interface BoletaVentaRepository extends JpaRepository<Boletaventa, Long> {
     Optional<Boletaventa> findByIdcomprador_IdAndClaveidempotencia(long buyer, String key);
