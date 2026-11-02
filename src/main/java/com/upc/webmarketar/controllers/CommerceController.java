@@ -1,9 +1,6 @@
 package com.upc.webmarketar.controllers;
 
-import com.upc.webmarketar.dtos.AddItemRequest;
-import com.upc.webmarketar.dtos.CartDTO;
-import com.upc.webmarketar.dtos.PurchaseDTO;
-import com.upc.webmarketar.dtos.QuantityRequest;
+import com.upc.webmarketar.dtos.*;
 import com.upc.webmarketar.services.CommerceService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
