@@ -1,6 +1,5 @@
 package com.upc.webmarketar.services;
 
-import com.upc.webmarketar.dtos.ProductoDTO;
 import com.upc.webmarketar.entities.Categoriaproducto;
 import com.upc.webmarketar.entities.Producto;
 import com.upc.webmarketar.entities.Vendedor;

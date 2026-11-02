@@ -1,7 +1,5 @@
 package com.upc.webmarketar.services;
 
-import com.upc.webmarketar.dtos.OfertaFabricacionRequestDTO;
-import com.upc.webmarketar.dtos.OfertaFabricacionResponseDTO;
 import com.upc.webmarketar.entities.Cotizacionprototipo;
 import com.upc.webmarketar.entities.Solicitud;
 import com.upc.webmarketar.entities.Vendedor;

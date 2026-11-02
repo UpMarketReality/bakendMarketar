@@ -1,7 +1,5 @@
 package com.upc.webmarketar.services;
 
-import com.upc.webmarketar.dtos.SolicitudDetalleDTO;
-import com.upc.webmarketar.dtos.SolicitudResumenDTO;
 import com.upc.webmarketar.entities.Solicitud;
 import com.upc.webmarketar.repositories.SolicitudRepository;
 import org.springframework.data.domain.Page;
