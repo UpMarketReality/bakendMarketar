@@ -2,11 +2,11 @@
 -- Se ejecuta DESPUÉS de constraints.sql sobre el esquema nuevo de Hibernate.
 INSERT INTO rol(idrol,nombre,descripcion) OVERRIDING SYSTEM VALUE VALUES
                                                                       (1,'VENDEDOR','Vendedor'),(2,'COMPRADOR','Comprador');
-INSERT INTO usuario(usuarioid,nombre,correo,passwordhash,idrol) OVERRIDING SYSTEM VALUE VALUES
-                                                                                            (1,'Comprador Uno','comprador1@marketar.test','$2b$12$XHa.C22MNkd2NiPDixaR3OpQHkLg/62E8TIwlqnja/L2uzkyzgaIC',2),
-                                                                                            (2,'Comprador Dos','comprador2@marketar.test','$2b$12$XHa.C22MNkd2NiPDixaR3OpQHkLg/62E8TIwlqnja/L2uzkyzgaIC',2),
-                                                                                            (3,'Vendedor Uno','vendedor1@marketar.test','$2b$12$XHa.C22MNkd2NiPDixaR3OpQHkLg/62E8TIwlqnja/L2uzkyzgaIC',1),
-                                                                                            (4,'Vendedor Dos','vendedor2@marketar.test','$2b$12$XHa.C22MNkd2NiPDixaR3OpQHkLg/62E8TIwlqnja/L2uzkyzgaIC',1);
+INSERT INTO usuario(usuarioid,nombre,correo,passwordhash,telefono,documento,urlimage,idrol) OVERRIDING SYSTEM VALUE VALUES
+                                                                                            (1,'Comprador Uno','comprador1@marketar.test','$2b$12$XHa.C22MNkd2NiPDixaR3OpQHkLg/62E8TIwlqnja/L2uzkyzgaIC','999888777','60607080','/image',2),
+                                                                                            (2,'Comprador Dos','comprador2@marketar.test','$2b$12$XHa.C22MNkd2NiPDixaR3OpQHkLg/62E8TIwlqnja/L2uzkyzgaIC','999888777','60607081','/image',2),
+                                                                                            (3,'Vendedor Uno','vendedor1@marketar.test','$2b$12$XHa.C22MNkd2NiPDixaR3OpQHkLg/62E8TIwlqnja/L2uzkyzgaIC','999888777','60607082','/image',1),
+                                                                                            (4,'Vendedor Dos','vendedor2@marketar.test','$2b$12$XHa.C22MNkd2NiPDixaR3OpQHkLg/62E8TIwlqnja/L2uzkyzgaIC','999888777','60607083','/image',1);
 INSERT INTO comprador(idcomprador,usuarioid,direccion) OVERRIDING SYSTEM VALUE VALUES
                                                                                    (1,1,'Av. Demo 100, Lima'),(2,2,'Av. Demo 200, Lima');
 INSERT INTO vendedor(idvendedor,usuarioid,nombretienda,descripciontienda,ruc) OVERRIDING SYSTEM VALUE VALUES

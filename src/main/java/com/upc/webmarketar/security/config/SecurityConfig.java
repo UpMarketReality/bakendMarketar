@@ -59,7 +59,7 @@ public class SecurityConfig {
                                         .permitAll()
                                         .requestMatchers("/api/v1/seller/**")
                                         .hasRole("VENDEDOR")
-                                        .requestMatchers("/api/v1/prototypes/*/images/*", "/api/usuarios/**")
+                                        .requestMatchers("/api/v1/prototypes/*/images/*", "/api/usuario/**")
                                         .authenticated()
                                         .requestMatchers(
                                                 "/api/v1/prototypes/**",

@@ -8,6 +8,7 @@ import java.util.Optional;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     @EntityGraph(attributePaths = "idrol")
+    Optional<Usuario> findByCorreoIgnoreCase(String correo);
     Optional<Usuario> findByCorreo(String correo);
     boolean existsByDocumentoAndIdNot(
             String documento,

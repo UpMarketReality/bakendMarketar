@@ -17,14 +17,14 @@ public class UserController {
     @Autowired
     private UsuarioPerfilService service;
 
-    @GetMapping("/me")
+    @GetMapping("/usuario/me")
     public PerfilUsuarioResponse obtenerMiPerfil(
             Authentication auth) {
 
         return service.obtenerMiPerfil(auth);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/usuario/{id}")
     public PerfilUsuarioResponse obtenerPorId(
             @PathVariable Long id,
             Authentication auth) {
@@ -32,7 +32,7 @@ public class UserController {
         return service.obtenerPorId(id, auth);
     }
 
-    @PutMapping("/me")
+    @PutMapping("/usuario/me")
     public PerfilUsuarioResponse actualizarPerfil(
             @Valid @RequestBody ActualizarPerfilRequest request,
             Authentication auth) {
@@ -40,7 +40,7 @@ public class UserController {
         return service.actualizarPerfil(request, auth);
     }
 
-    @PatchMapping("/me/password")
+    @PatchMapping("/usuario/me/password")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void cambiarPassword(
             @Valid @RequestBody CambiarPasswordRequest request,

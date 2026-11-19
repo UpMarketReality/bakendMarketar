@@ -20,7 +20,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String email) {
         var user =
-                users.findByCorreo(email)
+                users.findByCorreoIgnoreCase(email)
                         .orElseThrow(() -> new UsernameNotFoundException("Usuario inexistente"));
         return User.withUsername(user.getCorreo())
                 .password(user.getPasswordhash())
