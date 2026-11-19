@@ -15,4 +15,13 @@ public interface CompradorRepository extends JpaRepository<Comprador, Long> {
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("select c from Comprador c where c.id = :id")
     Optional<Comprador> lockById(@Param("id") long id);
+
+    @Query("""
+        SELECT c FROM Comprador c
+        JOIN c.usuarioid u
+        WHERE LOWER(u.correo) = LOWER(:correo)
+    """)
+    Optional<Comprador> buscarPorCorreoUsuario(
+            @Param("correo") String correo
+    );
 }
