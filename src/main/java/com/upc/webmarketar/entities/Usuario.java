@@ -49,6 +49,11 @@ public class Usuario {
     @Column(name = "telefono", length = 20)
     private String telefono;
 
+    @Size(max = 12)
+    @Column(name = "documento", length = 12, unique = true)
+    private String documento;
+
+
     @Size(max = 500)
     @Column(name = "urlimage", length = 500)
     private String urlimage;
