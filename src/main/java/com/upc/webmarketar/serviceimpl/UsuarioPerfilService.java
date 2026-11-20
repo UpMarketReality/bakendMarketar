@@ -1,28 +1,42 @@
 package com.upc.webmarketar.serviceimpl;
 
-import com.upc.webmarketar.dtos.ActualizarPerfilRequest;
-import com.upc.webmarketar.dtos.CambiarPasswordRequest;
-import com.upc.webmarketar.dtos.PerfilUsuarioResponse;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.json.JsonMapper;
+
+import com.upc.webmarketar.dtos.*;
+import com.upc.webmarketar.entities.Comprador;
 import com.upc.webmarketar.entities.Usuario;
+import com.upc.webmarketar.repositories.CompradorRepository;
 import com.upc.webmarketar.repositories.UsuarioRepository;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class UsuarioPerfilService {
+
     private final UsuarioRepository repository;
     private final PasswordEncoder passwordEncoder;
+    private final CompradorRepository compradorRepository;
+    private final JsonMapper objectMapper;
 
     public UsuarioPerfilService(
             UsuarioRepository repository,
-            PasswordEncoder passwordEncoder) {
+            PasswordEncoder passwordEncoder,
+            CompradorRepository compradorRepository,
+            JsonMapper objectMapper) {
+
         this.repository = repository;
         this.passwordEncoder = passwordEncoder;
+        this.compradorRepository = compradorRepository;
+        this.objectMapper = objectMapper;
     }
+
 
     // Obtener el usuario desde la sesión JWT
     private Usuario usuarioActual(Authentication auth) {
@@ -150,4 +164,87 @@ public class UsuarioPerfilService {
 
         repository.save(usuario);
     }
+    // Obtener el comprador asociado al JWT
+    private Comprador obtenerCompradorActual(
+            Authentication auth) {
+
+        if (auth == null || !auth.isAuthenticated()) {
+            throw new ResponseStatusException(
+                    HttpStatus.UNAUTHORIZED,
+                    "No autenticado"
+            );
+        }
+
+        String correo = auth.getName();
+
+        return compradorRepository
+                .buscarPorCorreoUsuario(correo)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "No existe un perfil de comprador para esta cuenta"
+                ));
+    }
+
+    // GET: Obtener dirección
+    @Transactional(readOnly = true)
+    public DireccionCompradorResponse obtenerMiDireccion(
+            Authentication auth) {
+
+        Comprador comprador = obtenerCompradorActual(auth);
+
+        return new DireccionCompradorResponse(
+                comprador.getDireccion()
+        );
+    }
+
+    // PUT: Guardar o actualizar dirección
+    @Transactional
+    public DireccionCompradorResponse actualizarMiDireccion(
+            DireccionCompradorRequest request,
+            Authentication auth) {
+
+        Comprador comprador = obtenerCompradorActual(auth);
+
+        // Normalizar los valores del formulario
+        DireccionCompradorRequest datos =
+                new DireccionCompradorRequest(
+                        request.calle().trim(),
+                        request.region().trim(),
+                        request.distrito().trim(),
+                        request.referencia() == null
+                                ? ""
+                                : request.referencia().trim()
+                );
+
+        String direccion;
+
+        try {
+            direccion = objectMapper.writeValueAsString(datos);
+        } catch (JacksonException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR,
+                    "No se pudo procesar la dirección",
+                    e
+            );
+        }
+
+        // Evitar superar el límite de la columna
+        if (direccion.length() > 300) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "La dirección completa supera los 300 caracteres"
+            );
+        }
+
+        // Guardar en la única columna direccion
+        comprador.setDireccion(direccion);
+
+        compradorRepository.save(comprador);
+
+        return new DireccionCompradorResponse(
+                comprador.getDireccion()
+        );
+    }
 }
+
+
