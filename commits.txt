@@ -1,0 +1,30 @@
+cd18133 | 2026-10-04 |  (origin/feature/implementaciones-carrito-comercio, feature/implementaciones-carrito-comercio) | Actualizacion de dependencias e imports de carrito y comercio | 
+ce5f838 | 2026-10-04 |  | implementacion de DTOs para carrito y compras | 
+5fbf739 | 2026-10-04 |  | implementacion y modificacion de repositorios para carrito y compras | 
+00f7d71 | 2026-10-04 |  (HEAD -> main, origin/main, origin/HEAD) | Merge pull request #11 from UpMarketReality/feature/autenticacion | refactor: actualizacion del proyecto
+c9a2574 | 2026-10-04 |  (origin/feature/autenticacion, feature/autenticacion) | refactor: actualizacion del proyecto | 
+b36608c | 2026-10-04 |  | Merge pull request #10 from UpMarketReality/feature/autenticacion | Feature/autenticacion
+304c6be | 2026-10-04 |  | implementacion y modificacion de la configuracion de seguridad y JWT | 
+4bb5bb8 | 2026-10-04 |  | implementacion de servicio de autenticacion | 
+51ed6c3 | 2026-10-04 |  | modificar repositorios para autenticacion | 
+875e558 | 2026-10-03 |  (origin/feature/agregar-producto-al-carrito, feature/agregar-producto-al-carrito) | feat: implementacion de agregar producto al carrito | 
+6810d67 | 2026-10-03 |  | Merge pull request #8 from UpMarketReality/feature/consultar-carrito-activo | feat: implementacion de consulta de carrito activo
+aca56dc | 2026-10-03 |  (origin/feature/consultar-carrito-activo, feature/consultar-carrito-activo) | feat: implementacion de consulta de carrito activo | 
+4462d82 | 2026-10-03 |  | Merge pull request #7 from UpMarketReality/feature/presentar-oferta-fabricacion | feat: implementacion de presentacion de oferta de fabricacion
+d7e4cd5 | 2026-10-03 |  (origin/feature/presentar-oferta-fabricacion) | feat: implementacion de presentacion de oferta de fabricacion | 
+8ea808d | 2026-10-03 |  | Merge pull request #6 from UpMarketReality/feature/detalle-solicitud-abierta-por-id | feat: implementacion de detalle de una solicitud abierta por ID
+f6adf8a | 2026-10-03 |  (origin/feature/detalle-solicitud-abierta-por-id) | feat: implementacion de detalle de una solicitud abierta por ID | 
+13a5c1e | 2026-10-02 |  | arregle algunos errores del pull request | 
+dbb665e | 2026-10-02 |  | Merge pull request #5 from UpMarketReality/feature/cambio-base-datos | cambie las entities de la bd, agregue una tabla más
+770aefc | 2026-10-02 |  | Merge pull request #4 from UpMarketReality/feature/listar-solicitudes-abiertas | feat: implementacion del listado de solicitudes abiertas
+b6e9f78 | 2026-10-02 |  (origin/feature/listar-solicitudes-abiertas) | feat: implementacion del listado de solicitudes abiertas | 
+e4c5093 | 2026-10-02 |  (origin/feature/cambio-base-datos) | cambie las entities de la bd, agregue una tabla más | 
+4e27669 | 2026-10-02 |  | Merge pull request #3 from UpMarketReality/feature/iniciar-sesion | feat implementar inicio de sesion con JWT
+5be1830 | 2026-10-02 |  (origin/feature/iniciar-sesion, feature/iniciar-sesion) | feat implementar inicio de sesion con JWT | 
+4afadaa | 2026-10-01 |  (US-04_Seccion_carrito) | Merge pull request #2 from UpMarketReality/listar_por_nombre_producto | agregue funcion listar productos
+099ca76 | 2026-10-01 |  (origin/listar_por_nombre_producto) | agregue funcion listar productos por nombre, para compradores y vendedores | 
+ce4188f | 2026-09-29 |  | Merge pull request #1 from UpMarketReality/listar_misproductos | Listar misproductos
+938d4da | 2026-09-29 |  (origin/listar_misproductos) | agregue ProductoDTO y api para registrar productos | 
+4e1aaaa | 2026-09-29 |  | agregue mis listar producto por vendedor y listar prototipo por comprador :) | 
+4ff056f | 2026-09-29 |  | agregue funcines para listar productos para comprador y vendedor, falta implementar security para poder ver swagger | 
+66eeac5 | 2026-09-28 |  | feat: inicializacion de proyecto con entidades jpa | 
