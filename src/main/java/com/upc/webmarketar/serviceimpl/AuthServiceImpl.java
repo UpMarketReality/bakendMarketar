@@ -61,14 +61,18 @@ public class AuthServiceImpl implements AuthService {
         }
         if ("VENDEDOR".equals(r.role())
                 && (r.storeName() == null
-                        || r.storeName().isBlank()
-                        || r.ruc() == null
-                        || !r.ruc().matches("[0-9]{11}"))) {
+                || r.storeName().isBlank()
+                || r.ruc() == null
+                || !r.ruc().matches("[0-9]{11}"))) {
             throw ApiException.bad("Vendedor requiere tienda y RUC de 11 dígitos");
+        }
+        String correo = r.email().trim().toLowerCase(Locale.ROOT);
+        if (users.findByCorreo(correo).isPresent()) {
+            throw ApiException.conflict("Este correo ya está registrado");
         }
         Usuario user = new Usuario();
         user.setNombre(r.name().trim());
-        user.setCorreo(r.email().trim().toLowerCase(Locale.ROOT));
+        user.setCorreo(correo);
         user.setPasswordhash(encoder.encode(r.password()));
         user.setIdrol(
                 roles.findByNombre(r.role()).orElseThrow(() -> ApiException.bad("Rol inválido")));
