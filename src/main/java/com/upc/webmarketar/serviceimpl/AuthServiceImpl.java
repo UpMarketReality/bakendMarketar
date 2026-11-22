@@ -76,6 +76,22 @@ public class AuthServiceImpl implements AuthService {
         user.setPasswordhash(encoder.encode(r.password()));
         user.setIdrol(
                 roles.findByNombre(r.role()).orElseThrow(() -> ApiException.bad("Rol inválido")));
+        if ("COMPRADOR".equals(r.role())) {
+            if (r.documento() == null ||
+                    !r.documento().matches("\\d{8}")) {
+                throw ApiException.bad(
+                        "El DNI debe contener 8 dígitos"
+                );
+            }
+
+            if (users.existsByDocumento(r.documento())) {
+                throw ApiException.conflict(
+                        "El DNI ya está registrado"
+                );
+            }
+
+            user.setDocumento(r.documento());
+        };
         users.save(user);
         if ("COMPRADOR".equals(r.role())) {
             Comprador buyer = new Comprador();

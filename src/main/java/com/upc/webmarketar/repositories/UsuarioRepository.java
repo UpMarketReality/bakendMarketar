@@ -14,4 +14,5 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
             String documento,
             Long id
     );
+    boolean existsByDocumento(String documento);
 }

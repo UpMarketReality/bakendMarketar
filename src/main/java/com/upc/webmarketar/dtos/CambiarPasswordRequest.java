@@ -8,7 +8,7 @@ public record CambiarPasswordRequest(
         String passwordActual,
 
         @NotBlank
-        @Size(min = 12, max = 128)
+        @Size(min = 12, max = 64)
         String passwordNueva
 ) {
 }
