@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface SolicitudRepository extends JpaRepository<Solicitud, Long> {
@@ -24,4 +25,9 @@ public interface SolicitudRepository extends JpaRepository<Solicitud, Long> {
             """)
     Page<Solicitud> search(
             @Param("buyer") Long buyer, @Param("category") Long category, Pageable pageable);
+
+    boolean existsByIdprototipoia_IdAndEstadoIn(
+            Long prototypeId,
+            List<String> estados
+    );
 }

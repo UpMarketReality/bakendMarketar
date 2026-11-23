@@ -125,6 +125,20 @@ public class QuoteServiceImpl implements QuoteService {
         if (p.getComprador().getId() != buyer) throw ApiException.missing();
         if (!"COMPLETADO".equals(p.getEstadogeneracion()))
             throw ApiException.conflict("El prototipo debe estar COMPLETADO");
+
+        boolean tieneCotizacionActiva =
+                requests.existsByIdprototipoia_IdAndEstadoIn(
+                        p.getId(),
+                        List.of("EN_COTIZACION", "COTIZADA")
+                );
+
+        if (tieneCotizacionActiva) {
+            throw ApiException.conflict(
+                    "Este diseño ya tiene una cotización activa. " +
+                            "Debes aceptarla o cancelarla antes de solicitar otra."
+            );
+        }
+
         var urls =
                 images.findByIdprototipoia_IdOrderByEsprincipalDescIdAsc(p.getId()).stream()
                         .sorted(Comparator.comparing(Imagenprototipo::getId))
