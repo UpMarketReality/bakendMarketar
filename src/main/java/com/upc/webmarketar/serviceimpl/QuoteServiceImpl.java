@@ -210,6 +210,20 @@ public class QuoteServiceImpl implements QuoteService {
     }
 
     @Override
+    @PreAuthorize("hasRole('VENDEDOR')")
+    public PageDTO<OfferDTO> sellerOffers(String status, int page, int size) {
+        if (status != null && !List.of("PENDIENTE", "ACEPTADA", "RECHAZADA").contains(status))
+            throw ApiException.bad("Estado de oferta desconocido");
+        long seller = identity.seller();
+        var pageable = Pages.request(page, size, Sort.by(Sort.Direction.DESC, "id"));
+        var found =
+                status == null
+                        ? offers.findByIdvendedor_Id(seller, pageable)
+                        : offers.findByIdvendedor_IdAndEstado(seller, status, pageable);
+        return Pages.view(found, this::offerView);
+    }
+
+    @Override
     @Transactional
     @PreAuthorize("hasRole('COMPRADOR')")
     public ResultDTO<OrderDTO> accept(long offer) {
