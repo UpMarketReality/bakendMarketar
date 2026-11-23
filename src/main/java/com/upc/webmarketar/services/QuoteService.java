@@ -26,4 +26,6 @@ public interface QuoteService {
     PageDTO<OrderDTO> orders(boolean seller, int page, int size);
 
     OrderDTO status(long id, String next);
+
+    PageDTO<OfferDTO> sellerOffers(String status, int page, int size);
 }

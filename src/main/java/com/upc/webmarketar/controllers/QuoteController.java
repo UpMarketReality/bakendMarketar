@@ -41,6 +41,14 @@ public class QuoteController {
         return ResponseEntity.status(201).body(s.offer(requestId, r));
     }
 
+    @GetMapping("/seller/offers")
+    public PageDTO<OfferDTO> sellerOffers(
+            @RequestParam(required = false) String status,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size) {
+        return s.sellerOffers(status, page, size);
+    }
+    
     @GetMapping("/quote-requests/me")
     public PageDTO<QuoteRequestDTO> mine(
             @RequestParam(defaultValue = "0") int page,
