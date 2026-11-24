@@ -35,3 +35,12 @@ build/
 
 ### VS Code ###
 .vscode/
+
+/uploads
+
+# Imagenes subidas por los vendedores (se guardan en ./media). Solo se versionan las de ejemplo.
+/media/*
+!/media/products/
+/media/products/*
+!/media/products/demo.png
+!/media/products/demo-secondary.png

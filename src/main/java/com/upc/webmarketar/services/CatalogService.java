@@ -34,4 +34,7 @@ public interface CatalogService {
     StoreDTO store();
 
     StoreDTO store(StoreRequest p);
+
+    //Adicionado para ingreso de imagenes locales
+    ImageDTO uploadProductImage(long productId, MultipartFile file, boolean isMain);
 }

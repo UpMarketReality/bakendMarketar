@@ -5,10 +5,10 @@ import com.upc.webmarketar.entities.Imagenproducto;
 import com.upc.webmarketar.entities.Producto;
 import com.upc.webmarketar.entities.Vendedor;
 import com.upc.webmarketar.exceptions.ApiException;
-import com.upc.webmarketar.infrastructure.MediaStorage;
 import com.upc.webmarketar.repositories.*;
 import com.upc.webmarketar.security.services.Identity;
 import com.upc.webmarketar.services.CatalogService;
+import com.upc.webmarketar.services.StorageService;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -30,7 +30,7 @@ public class CatalogServiceImpl implements CatalogService {
     private final CategoriaPrototipoRepository prototypeCategories;
     private final VendedorRepository sellers;
     private final Identity identity;
-    private final MediaStorage media;
+    private final StorageService storage;
 
     public CatalogServiceImpl(
             ProductoRepository products,
@@ -39,14 +39,14 @@ public class CatalogServiceImpl implements CatalogService {
             CategoriaPrototipoRepository prototypeCategories,
             VendedorRepository sellers,
             Identity identity,
-            MediaStorage media) {
+            StorageService storage) {
         this.products = products;
         this.images = images;
         this.categories = categories;
         this.prototypeCategories = prototypeCategories;
         this.sellers = sellers;
         this.identity = identity;
-        this.media = media;
+        this.storage = storage;
     }
 
     private ProductDTO view(Producto p) {
@@ -144,12 +144,12 @@ public class CatalogServiceImpl implements CatalogService {
         if (!"INACTIVO".equals(p.getEstado())) p.setEstado(r.stock() == 0 ? "AGOTADO" : "ACTIVO");
     }
 
-    private void addImage(Producto p, MultipartFile file, boolean principal) {
+    private Imagenproducto addImage(Producto p, MultipartFile file, boolean principal) {
         Imagenproducto image = new Imagenproducto();
         image.setIdproducto(p);
-        image.setUrl(media.product(file));
+        image.setUrl(storage.upload(file));
         image.setEsprincipal(principal);
-        images.save(image);
+        return images.save(image);
     }
 
     @Override
@@ -185,7 +185,7 @@ public class CatalogServiceImpl implements CatalogService {
         for (var image : old) {
             if (!keep.contains(image.getId())) {
                 images.delete(image);
-                media.deleteProductAfterCommit(image.getUrl());
+                storage.delete(image.getUrl());
             } else {
                 image.setEsprincipal(false);
             }
@@ -255,5 +255,27 @@ public class CatalogServiceImpl implements CatalogService {
         seller.setNombretienda(r.storeName());
         seller.setDescripciontienda(r.storeDescription());
         return storeView(seller);
+    }
+
+    // Sube una imagen adicional a un producto propio del vendedor.
+    // En local se guarda en ./media/products; en AWS se guardaría en S3 (ver StorageService).
+    @Override
+    @Transactional
+    @PreAuthorize("hasRole('VENDEDOR')")
+    public ImageDTO uploadProductImage(long productId, MultipartFile file, boolean isMain) {
+        if (file == null || file.isEmpty()) throw ApiException.bad("Selecciona una imagen");
+        Producto p = owned(productId, true);
+        var current = images.findByIdproducto_IdOrderByIdAsc(productId);
+        if (current.size() >= 10) throw ApiException.bad("Máximo 10 imágenes");
+
+        // La primera imagen de un producto siempre es la principal
+        boolean principal = isMain || current.isEmpty();
+        if (principal) {
+            for (var image : current) image.setEsprincipal(false);
+            // Libera el índice único parcial de imagen principal antes de asignar la nueva
+            images.flush();
+        }
+        Imagenproducto saved = addImage(p, file, principal);
+        return new ImageDTO(saved.getId(), saved.getUrl(), saved.getEsprincipal());
     }
 }

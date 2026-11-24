@@ -5,6 +5,7 @@ import com.upc.webmarketar.services.CatalogService;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Encoding;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -122,5 +123,15 @@ public class CatalogController {
     @PutMapping("/seller/store")
     public StoreDTO store(@Valid @RequestBody StoreRequest data) {
         return service.store(data);
+    }
+
+    // POST /api/v1/seller/products/{productId}/images (solo el vendedor dueño del producto)
+    @PostMapping(value = "/seller/products/{productId}/images", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<ImageDTO> uploadProductImage(
+            @PathVariable long productId,
+            @RequestParam("file") MultipartFile file,
+            @RequestParam(value = "isMain", defaultValue = "false") boolean isMain) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(service.uploadProductImage(productId, file, isMain));
     }
 }

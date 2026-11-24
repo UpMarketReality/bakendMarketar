@@ -1,22 +1,29 @@
 package com.upc.webmarketar.controllers;
 
 import com.upc.webmarketar.dtos.*;
+import com.upc.webmarketar.services.CatalogService;
 import com.upc.webmarketar.services.CommerceService;
+import com.upc.webmarketar.services.StorageService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1")
 public class CommerceController {
+
     private final CommerceService s;
 
-    public CommerceController(CommerceService s) {
+
+    public CommerceController(
+            CommerceService s) {
         this.s = s;
     }
-
     @PostMapping("/users/me/favorites/{productId}")
     public ResponseEntity<FavoriteDTO> favorite(@PathVariable long productId) {
         var r = s.addFavorite(productId);
@@ -75,4 +82,6 @@ public class CommerceController {
     public PurchaseDTO purchase(@PathVariable long purchaseId) {
         return s.purchase(purchaseId);
     }
+
+
 }
